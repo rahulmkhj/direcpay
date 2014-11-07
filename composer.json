@@ -1,0 +1,23 @@
+{
+	"name" : "access-manager/am-radius",
+	"Description" : "This is a dependecy module for Access Manager to interact with freeradius ",
+	"license" : "MIT",
+	"authors" : [
+			{
+				"name" : "Rahul Makhija",
+				"email" : "rahulmkhj@gmail.com"
+			}
+		],
+	"require" : {
+		"php" : ">=5.4"
+		},
+	"autoload" : {
+			"psr-4" : {
+				"RAHULMKHJ\\PaymentGateways\\" : "src"
+				}
+		},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
+}
