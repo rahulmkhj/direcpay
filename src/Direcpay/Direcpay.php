@@ -202,8 +202,6 @@ form;
 		}
 	}
 
-	public function 
-
 }
 
 //end of file Direcpay.php
