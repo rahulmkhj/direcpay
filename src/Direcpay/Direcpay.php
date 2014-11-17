@@ -9,7 +9,7 @@ class Direcpay {
 	private $enc_key = 'qcAHa6tt8s0l5NN7UWPVAQ==';
 	private $sandbox = FALSE;
 	private $sandboxUrl = "https://test.timesofmoney.com/direcpay/secure/dpMerchantPayment.jsp";
-	private $productionUrl = "https://timesofmoney.com/direcpay/secure/dpMerchantPayment.jsp";
+	private $productionUrl = "https://www.timesofmoney.com/direcpay/secure/dpMerchantPayment.jsp";
 
 	private $requestString;
 	private $billingString;
@@ -201,6 +201,8 @@ form;
 				throw new Exception("Missing required parameter from shipping details: $detail");
 		}
 	}
+
+	public function 
 
 }
 
