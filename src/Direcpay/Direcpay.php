@@ -74,45 +74,10 @@ class Direcpay {
 		$aes->set_key(base64_decode($this->enc_key));
 		$aes->require_pkcs5();
 
-
-		echo $this->_buildRequestString(), "<br />", $this->_buildBillingString(),
-		"<br />", $this->_buildShippingString($this->billingDetails);
-
 		$this->requestString = $aes->encrypt( $this->_buildRequestString() );
 		$this->billingString = $aes->encrypt( $this->_buildBillingString() );
 		$shipping_details = $shipping_details_same ? $this->billingDetails : $this->shippingDetails;
 		$this->shippingString = $aes->encrypt( $this->_buildShippingString($shipping_details) );
-	}
-
-	public function initTransaction()
-	{
-		$direcpay_url = $this->sandbox ? $this->sandboxUrl : $this->productionUrl;
-		
-		$ch = curl_init();
-		curl_setopt_array($ch, [
-				CURLOPT_URL				=>		$direcpay_url,
-				CURLOPT_HTTP_VERSION	=>		CURL_HTTP_VERSION_1_1,
-				CURLOPT_POST			=>		1,
-				CURLOPT_POSTFIELDS		=>		http_build_query([
-																	'requestparameter'	=> $this->requestString,
-																	'billingDtls'		=>	$this->billingString,
-																	'shippingDtls'		=>	$this->shippingString,
-																	]),
-				CURLOPT_FOLLOWLOCATION	=>		TRUE,
-				CURLOPT_RETURNTRANSFER	=>		TRUE,
-				CURLOPT_HEADER 			=>		TRUE,
-				CURLOPT_USERAGENT		=>		'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)',
-				CURLOPT_REFERER			=>		$direcpay_url,	//"http://localhost:8888/direcpay/",
-				CURLOPT_SSL_VERIFYPEER 	=>		TRUE,
-				CURLOPT_SSL_VERIFYHOST	=>		2,
-				CURLOPT_HTTPHEADER		=>		[$direcpay_url,],
-				// CURLOPT_VERBOSE			=>		TRUE,
-			]);
-		$output = curl_exec($ch);
-		// $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		// pr($status);
-		// pr($output);
-		print_r($output);
 	}
 
 	public function generateForm()
