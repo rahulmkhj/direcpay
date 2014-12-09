@@ -8,6 +8,8 @@ class Direcpay {
 
 	private $enc_key = 'qcAHa6tt8s0l5NN7UWPVAQ==';
 	private $sandbox = FALSE;
+	private $autoSubmit = FALSE;
+	private $autoSubmitMessage = NULL;
 	private $sandboxUrl = "https://test.timesofmoney.com/direcpay/secure/dpMerchantPayment.jsp";
 	private $productionUrl = "https://www.timesofmoney.com/direcpay/secure/dpMerchantPayment.jsp";
 
@@ -80,19 +82,34 @@ class Direcpay {
 		$this->shippingString = $aes->encrypt( $this->_buildShippingString($shipping_details) );
 	}
 
+	public function autoSubmit($message = "If you're not redirected automatically, please press following button")
+	{
+		$this->autoSubmit = TRUE;
+		$this->autoSubmitMessage = $message;
+	}
+
 	public function generateForm()
 	{
 		$action = $this->sandbox ? $this->sandboxUrl : $this->productionUrl;
-
+		if($this->autoSubmit)
+			echo $this->autoSubmitMessage;
 		echo <<<form
-		<form name='ecom' action='$action' method='POST'>
+		<form name='ecom' action='$action' method='POST' id='ecom_form'>
 			<input type='hidden' name='requestparameter' value="$this->requestString" />
 			<input type='hidden' name='billingDtls' value='$this->billingString' />
 			<input type='hidden' name='shippingDtls' value='$this->shippingString' />
 			<input type='hidden' name='merchantId' value={$this->requestParameters['MID']} />
-			<input type='submit' name='submit' value='Submit' />
+			<input type='submit' name='ecom_form' value='Submit' />
 		</form>
 form;
+		if($this->autoSubmit) :
+		echo <<<autosubmit
+		<script type='text/javascript'>
+		document.getElementById('ecom_form').submit();
+		</script>
+autosubmit;
+		endif;
+
 	}
 
 	private function _buildRequestString()
