@@ -112,6 +112,15 @@ autosubmit;
 
 	}
 
+	public static function parseSuccess($responseparams)
+	{
+		$arr = explode('|', $responseparams);
+		$values = array_filter($arr);
+		$keys = ['direcpayreferenceid','flag','country','currency','otherdetails','merchantordernumber','amount'];
+		$result = array_combine($keys, $values);
+		return $result;
+	}
+
 	private function _buildRequestString()
 	{
 		$string = "{$this->requestParameters['MID']}|DOM|IND|INR|{$this->requestParameters['amount']}|".
