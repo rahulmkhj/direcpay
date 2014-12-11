@@ -1,6 +1,6 @@
 {
 	"name" : "rahulmkhj/direcpay",
-	"Description" : "This is a dependecy module for Access Manager to interact with freeradius ",
+	"Description" : "This class can be used to recieve online payment via Direcpay online payment gateway.",
 	"license" : "MIT",
 	"authors" : [
 			{
