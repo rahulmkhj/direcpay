@@ -1,5 +1,5 @@
 {
-	"name" : "access-manager/am-radius",
+	"name" : "rahulmkhj/direcpay",
 	"Description" : "This is a dependecy module for Access Manager to interact with freeradius ",
 	"license" : "MIT",
 	"authors" : [
