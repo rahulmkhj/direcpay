@@ -36,15 +36,17 @@ class Direcpay {
 
 //================================//================================//================================//
 
-	public function setEncryptionKey($key)
+	public function setMerchant($mid, $enc_key)
 	{
-		$this->enc_key = $key;
+		$this->requestParameters['MID'] = $mid;
+		$this->enc_key = $enc_key;
 	}
 
 	public function enableSandbox()
 	{
 		$this->sandbox = TRUE;
 		$this->requestParameters['MID'] = 200904281000001;
+		$this->enc_key = 'qcAHa6tt8s0l5NN7UWPVAQ==';
 	}
 
 	public function setRequestParameters(Array $params )
