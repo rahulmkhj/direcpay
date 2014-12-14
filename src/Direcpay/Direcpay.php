@@ -120,13 +120,9 @@ autosubmit;
 
 	}
 
-	public static function parseSuccess($responseparams)
+	public static function response($post)
 	{
-		$arr = explode('|', $responseparams);
-		$values = array_filter($arr);
-		$keys = ['direcpayreferenceid','flag','country','currency','otherdetails','merchantordernumber','amount'];
-		$result = array_combine($keys, $values);
-		return $result;
+		return new DirecpayResponse($post['responseparams']);
 	}
 
 	private function _buildRequestString()
