@@ -17,6 +17,7 @@ class Direcpay {
 	private $billingString;
 	private $shippingString;
 
+	private $otherDetails = NULL;
 	private $requestParameters = [];
 	private $billingDetails = [];
 	private $shippingDetails = [];
@@ -24,7 +25,7 @@ class Direcpay {
 	private $mandatory_params = [
 		'MID','amount','orderNo','successUrl','failureUrl',
 	];
-	private $optional_params = ['otherDetails'];
+	private $optional_params = [];
 	private $mandatory_billing_details = [
 		'name','address','city','state','pinCode','country','mobileNo','emailId'
 	];
@@ -70,6 +71,11 @@ class Direcpay {
 		}
 		$this->_checkAllowedShippingDetails($details);
 		$this->shippingDetails = $details;
+	}
+
+	public function setOtherDetails( Array $details )
+	{
+		$this->otherDetails = http_build_query($details);
 	}
 
 	public function buildEncryptedStrings($shipping_details_same = FALSE)
@@ -127,8 +133,8 @@ autosubmit;
 	{
 		$string = "{$this->requestParameters['MID']}|DOM|IND|INR|{$this->requestParameters['amount']}|".
 					"{$this->requestParameters['orderNo']}|";
-		$string .= isset($this->requestParameters['otherDetails']) ? "{$this->requestParameters['otherDetails']}|" : 'NULL';
-		$string .= "{$this->requestParameters['successUrl']}|{$this->requestParameters['failureUrl']}|".
+		$string .= is_null($this->otherDetails) ? 'NULL' : $this->otherDetails;
+		$string .= "|{$this->requestParameters['successUrl']}|{$this->requestParameters['failureUrl']}|".
 				"TOML";
 		return $string;
 	}
