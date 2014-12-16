@@ -6,11 +6,11 @@ class DirecpayResponse {
 	private $response = NULL;
 	private $details = NULL;
 
-	public function __construct( Array $response_params )
+	public function __construct( $response_params )
 	{
 		$arr = explode('|', $response_params);
 		$values = array_filter($arr);
-		$keys = ['direcpayreferenceid','flag','country','currency','otherdetails','merchantordernumber','amount'];
+		$keys = ['direcpayreferenceid','status','country','currency','otherdetails','merchantordernumber','amount'];
 		$result = array_combine($keys, $values);
 		parse_str(urldecode($result['otherdetails']), $this->details);
 		unset($result['otherdetails']);
