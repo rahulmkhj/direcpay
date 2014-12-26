@@ -130,8 +130,12 @@ autosubmit;
 		$string = "{$this->requestParameters['MID']}|DOM|IND|INR|{$this->requestParameters['amount']}|".
 					"{$this->requestParameters['orderNo']}|";
 		$string .= is_null($this->otherDetails) ? 'NULL' : $this->otherDetails;
-		$string .= "|{$this->requestParameters['successUrl']}|{$this->requestParameters['failureUrl']}|".
-				"TOML";
+		$string .= "|{$this->requestParameters['successUrl']}|{$this->requestParameters['failureUrl']}|";
+		if( $this->sandbox) {
+			$string .= "TOML";
+		} else {
+			$string .= 'DirecPay';
+		}
 		return $string;
 	}
 
